@@ -13,7 +13,7 @@ namespace BLL.Services
 {
     public class BrandService : IBrandService
     {
-        // берём из бд колонку с нужными нам данными?
+        // берём из бд таблицу с нужными нам данными
         private readonly IGenericDataSourse<Brand> _BrandDataSource;
 
         public BrandService(IGenericDataSourse<Brand> brandDataSource)

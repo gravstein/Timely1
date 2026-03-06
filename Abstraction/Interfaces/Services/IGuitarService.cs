@@ -2,6 +2,8 @@
 
 namespace Abstraction.Interfaces.Services
 {
+    // Интерфейс где описывается сервис для модели Guitar. Реализуется в слое BLL в соответсвующем файле GuitarService.cs
+
     public interface IGuitarService
     {
         /// <summary>
