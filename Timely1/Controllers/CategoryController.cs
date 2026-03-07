@@ -1,5 +1,6 @@
 ﻿using Abstraction.Interfaces.Services;
 using BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO;
 
@@ -7,6 +8,7 @@ namespace Timely1.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         protected readonly ICategoryService categoryService;

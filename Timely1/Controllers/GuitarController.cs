@@ -1,4 +1,5 @@
 ﻿using Abstraction.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO;
 
@@ -9,6 +10,7 @@ namespace Timely1.Controllers
                                 // мы должны сделать запрос чтобы обратиться к этому контроллеру
                                 // [controller] замениться на имя класса без слова Controller
                                 // по итогу: https://site.com/.../api/Guitar
+    [Authorize] // с этим могут работать только аутентифицированные пользователи
     public class GuitarController : ControllerBase
     {
         private readonly IGuitarService guitarService; // храним сервис

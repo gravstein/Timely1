@@ -4,7 +4,7 @@ using Models.Entities;
 
 namespace DAL.Configurations
 {
-    // Seed Data. Тут прописывается что при создании БД туда сразу впишутся эти три роли
+    // создаём роли для пользователей в БД
 
     public class RoleConfig : IEntityTypeConfiguration<AppRole> // с помощью этого интерфейса мы настраиваем каждую таблицу отдельно
     {
