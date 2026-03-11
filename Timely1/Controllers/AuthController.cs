@@ -1,4 +1,5 @@
 ﻿using Abstraction.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO;
@@ -16,6 +17,12 @@ namespace Timely1.Controllers
             this.authService = authService;
         }
 
+        [HttpGet("test-error")]
+        public IActionResult TestError() // тест middleware
+        {
+            throw new Exception("Middleware поймал ошибку");
+        }
+
         [HttpPost("login")]
         public async Task<AuthResponseDTO> Login([FromBody] LoginDTO loginDTO)
         {
@@ -25,8 +32,8 @@ namespace Timely1.Controllers
             return tokens;
         }
         [HttpPost("refresh")]
+        [Authorize] // только авторизованные пользователи
         public async Task<AuthResponseDTO> Refresh([FromBody] RefreshRequest request) // принимаем данные request-а
-                                                                                      // мы сами пишем эту модель или используем готовую?
         {
             if (string.IsNullOrEmpty(request.RefreshToken)) throw new ArgumentNullException("Null refresh request");
 

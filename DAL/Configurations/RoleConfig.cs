@@ -13,7 +13,8 @@ namespace DAL.Configurations
             builder.HasData( // Seed
                 new AppRole
                 {
-                    Id = "78a6f634-9336-407b-99f5-467321234c32", // без этого не делаются миграции
+                    Id = "78a6f634-9336-407b-99f5-467321234c32", // без этого не делаются миграции потому что в StreamingServiceDbContext без этого
+                                                                 // они каждый раз создаются новые что ломает бдшку
                     Name = "User",
                     NormalizedName = "USER"
                 },

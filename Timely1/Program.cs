@@ -63,16 +63,20 @@ builder.Services.AddSwaggerGen(c => // настройки сваггера
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var seedService = scope.ServiceProvider.GetRequiredService<ISeedService>(); // берём нужный нам сервис потому что мы его регистрировали
+    await seedService.SeedUsersAndRolesAsync(); // садим наших пользователей с ролями
+}
+app.AddExceptionHandler(); // применяем middleware
+app.InitMapping(); // применяем настройки маппера
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// применяем настройки маппера
-app.InitMapping();
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication(); // добавляем аутентификацию 

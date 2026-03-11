@@ -20,6 +20,9 @@ namespace Timely1.Extensions
 
             // mapper
             services.AddSingleton<IMapper, Mapper>();
+
+            // seeder
+            services.AddScoped<ISeedService, SeedService>();
         }
     }
 }

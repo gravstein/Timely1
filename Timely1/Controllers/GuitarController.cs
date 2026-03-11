@@ -10,7 +10,7 @@ namespace Timely1.Controllers
                                 // мы должны сделать запрос чтобы обратиться к этому контроллеру
                                 // [controller] замениться на имя класса без слова Controller
                                 // по итогу: https://site.com/.../api/Guitar
-    [Authorize] // с этим могут работать только аутентифицированные пользователи
+    //[Authorize] // с этим могут работать только аутентифицированные пользователи
     public class GuitarController : ControllerBase
     {
         private readonly IGuitarService guitarService; // храним сервис
@@ -22,6 +22,7 @@ namespace Timely1.Controllers
         }
 
         [HttpGet("guitars")] // метод GET который будет находится по пути: .../api/Guitar/guitars
+        [Authorize]
         public async Task<List<GuitarDTO>> GetAllGuitars()
         {
             return await Task.FromResult(guitarService.GetAllGuitars()); // FromResult оборачивает наш результат в таску
@@ -29,18 +30,21 @@ namespace Timely1.Controllers
         }
 
         [HttpPost("add-guitar")]
+        [Authorize(Roles = "Manager,Admin")] // только менеджеры и админы
         public async Task<int> AddGuitar([FromBody] GuitarDTO guitar) // брать данные из Body запроса а не из самой ссылки
         {
             return await guitarService.AddGuitar(guitar);
         }
 
         [HttpPut("update-guitar")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<int> UpdateGuitar([FromBody] GuitarDTO guitar) 
         {
             return await guitarService.UpdateGuitar(guitar);
         }
 
         [HttpDelete("delete-guitar")]
+        [Authorize(Roles = "Admin")] // только админы
         public async Task<int> DeleteGuitar(int id)
         {
             return await guitarService.DeleteGuitar(id);
