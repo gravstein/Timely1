@@ -1,6 +1,8 @@
 ﻿using Abstraction.Interfaces.Services;
 using Common.Resources;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Models.DTO;
 using Models.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,11 +13,13 @@ namespace BLL.Services
     {
         private readonly ITokenService tokenService; // получаем сервис для генерации токенов
         private readonly UserManager<AppUser> userManager;
+        private readonly IStringLocalizer _localizer; // локализатор для наших ошибок
 
-        public AuthService(ITokenService tokenService, UserManager<AppUser> userManager)
+        public AuthService(ITokenService tokenService, UserManager<AppUser> userManager, IStringLocalizerFactory factory, ILogger<AuthService> logger)
         {
             this.tokenService = tokenService;
             this.userManager = userManager;
+            _localizer = factory.Create(typeof(ErrorMessages)); // берём локализацию из factory
         }
 
         public async Task<AuthResponseDTO> LoginUser(LoginDTO userForLogin)
@@ -23,7 +27,7 @@ namespace BLL.Services
             var user = await userManager.FindByEmailAsync(userForLogin.Email); // ищем пользователя в БД по почте
 
             if (user == null || !await userManager.CheckPasswordAsync(user, userForLogin.Password)) // если пользователя не существует или если не совпадает пароль
-                throw new UnauthorizedAccessException(string.Format(ErrorMessages.UserNotFound)); // вызываем ошибку с соответсвующим текстом из файла ресурсов
+                throw new UnauthorizedAccessException(_localizer["UserNotFound"].Value); // вызываем ошибку с соответсвующим текстом из файла ресурсов
                
             var roles = await userManager.GetRolesAsync(user); // собираем роли пользователей
             var token = tokenService.GenerateAccessToken(user, roles);

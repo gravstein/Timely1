@@ -25,21 +25,21 @@ namespace Timely1.Controllers
         }
 
         [HttpPost("add-brand")]
-        [Authorize(Roles = "Manager,Admin")]
+        [Authorize(Policy = "SuperRights")]
         public async Task<int> AddBrand([FromBody] BrandDTO brand)
         {
             return await brandService.AddBrand(brand);
         }
 
         [HttpPut("update-brand")]
-        [Authorize(Roles = "Manager,Admin")]
+        [Authorize(Policy = "SuperRights")]
         public async Task<int> UpdateBrand([FromBody] BrandDTO brand)
         {
             return await brandService.UpdateBrand(brand);
         }
 
         [HttpDelete("delete-brand")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "SuperMegaRights")]
         public async Task<int> DeleteBrand(int id)
         {
             return await brandService.DeleteBrand(id);

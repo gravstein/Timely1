@@ -21,11 +21,16 @@ builder.Services.AddDataSourceServices();
 // регистрируем сервисы
 builder.Services.AddBllServices();
 
+// Локализация
+builder.Services.AddLocalizationConfigs();
+
 // настраиваем систему пользователей
 builder.Services.AddIdentityServices();
 // устанавливаем проверку по JWT
 builder.Services.AddJwtAuthentication(config);
 
+// регистрируем Authorize политики
+builder.Services.AddPolicies();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -79,6 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
+app.UseRequestLocalization(); // локализация
 app.UseAuthentication(); // добавляем аутентификацию 
 app.UseAuthorization();
 

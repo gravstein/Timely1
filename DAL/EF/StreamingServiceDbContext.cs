@@ -21,10 +21,10 @@ namespace DAL.EF
         public StreamingServiceDbContext(DbContextOptions<StreamingServiceDbContext> options) : base(options) { } 
         // коструктор который принимает настройки БД которые задаются в Programm.cs
 
-        protected override void OnModelCreating(ModelBuilder builder) // метод инструкции для EF которая задаёт структуру БД
-        {
+        protected override void OnModelCreating(ModelBuilder builder) // метод инструкции для EF которая задаёт структуру БД. в нём реализуется Fluent API
+        {   
             base.OnModelCreating(builder);
-
+                
             var applicationContextAssembly = typeof(StreamingServiceDbContext).Assembly; // берём нашу сборку
 
             builder.ApplyConfigurationsFromAssembly(applicationContextAssembly); // сканируем её и находим Config-и и применяем их

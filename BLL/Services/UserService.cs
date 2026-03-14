@@ -20,7 +20,7 @@ namespace BLL.Services
 
         public async Task<int> RegisterUser(RegistrationDTO registrationDTO)
         {
-            if (registrationDTO == null) // пришли пустые данные
+            if (registrationDTO is null) // пришли пустые данные
                 throw new Exception("You've missed field");
 
             var user = mapper.Map<AppUser>(registrationDTO); // берём данные из DTO и создаём пользователя

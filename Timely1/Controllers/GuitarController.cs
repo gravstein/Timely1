@@ -30,21 +30,21 @@ namespace Timely1.Controllers
         }
 
         [HttpPost("add-guitar")]
-        [Authorize(Roles = "Manager,Admin")] // только менеджеры и админы
+        [Authorize(Policy = "SuperRights")] // только менеджеры и админы
         public async Task<int> AddGuitar([FromBody] GuitarDTO guitar) // брать данные из Body запроса а не из самой ссылки
         {
             return await guitarService.AddGuitar(guitar);
         }
 
         [HttpPut("update-guitar")]
-        [Authorize(Roles = "Manager,Admin")]
+        [Authorize(Policy = "SuperRights")]
         public async Task<int> UpdateGuitar([FromBody] GuitarDTO guitar) 
         {
             return await guitarService.UpdateGuitar(guitar);
         }
 
         [HttpDelete("delete-guitar")]
-        [Authorize(Roles = "Admin")] // только админы
+        [Authorize(Policy = "SuperMegaRights")] // только админы
         public async Task<int> DeleteGuitar(int id)
         {
             return await guitarService.DeleteGuitar(id);

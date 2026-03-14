@@ -26,21 +26,21 @@ namespace Timely1.Controllers
         }
 
         [HttpPost("add-category")]
-        [Authorize(Roles = "Manager,Admin")]
+        [Authorize(Policy = "SuperRights")]
         public async Task<int> AddCategory([FromBody] CategoryDTO category)
         {
             return await categoryService.AddCategory(category);
         }
 
         [HttpPut("update-category")]
-        [Authorize(Roles = "Manager,Admin")]
+        [Authorize(Policy = "SuperRights")]
         public async Task<int> UpdateCategory([FromBody] CategoryDTO category)
         {
             return await categoryService.UpdateCategory(category);
         }
 
         [HttpDelete("delete-category")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "SuperMegaRights")]
         public async Task<int> DeleteCategory(int id)
         {
             return await categoryService.DeleteCategory(id);

@@ -17,12 +17,6 @@ namespace Timely1.Controllers
             this.authService = authService;
         }
 
-        [HttpGet("test-error")]
-        public IActionResult TestError() // тест middleware
-        {
-            throw new Exception("Middleware поймал ошибку");
-        }
-
         [HttpPost("login")]
         public async Task<AuthResponseDTO> Login([FromBody] LoginDTO loginDTO)
         {

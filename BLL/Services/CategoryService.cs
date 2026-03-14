@@ -13,7 +13,6 @@ namespace BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        // берём из бд колонку с нужными нам данными?
         private readonly IGenericDataSourse<Category> _CategoryDataSource;
 
         public CategoryService(IGenericDataSourse<Category> categoryDataSource)
