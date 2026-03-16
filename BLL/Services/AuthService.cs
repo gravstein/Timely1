@@ -13,13 +13,13 @@ namespace BLL.Services
     {
         private readonly ITokenService tokenService; // получаем сервис для генерации токенов
         private readonly UserManager<AppUser> userManager;
-        private readonly IStringLocalizer _localizer; // локализатор для наших ошибок
+        private readonly IStringLocalizer<ErrorMessages> _localizer; // локализатор для наших ошибок
 
-        public AuthService(ITokenService tokenService, UserManager<AppUser> userManager, IStringLocalizerFactory factory, ILogger<AuthService> logger)
+        public AuthService(ITokenService tokenService, UserManager<AppUser> userManager, IStringLocalizer<ErrorMessages> localizer)
         {
             this.tokenService = tokenService;
             this.userManager = userManager;
-            _localizer = factory.Create(typeof(ErrorMessages)); // берём локализацию из factory
+            _localizer = localizer; 
         }
 
         public async Task<AuthResponseDTO> LoginUser(LoginDTO userForLogin)

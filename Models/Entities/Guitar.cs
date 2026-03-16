@@ -13,8 +13,12 @@ namespace Models.Entities
         public decimal Price { get; set; }
         public int NumOfPickups { get; set; }
         public string TypeOfWood { get; set; }
+        public string ImagePath { get; set; }
 
+        public int BrandId { get; set; } // FK поле по нему EF сам найдёт бренд
         public Brand Brand { get; set; }
+
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }

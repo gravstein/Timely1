@@ -19,7 +19,7 @@ namespace Timely1.Controllers
         }
 
         [HttpGet("categories")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<List<CategoryDTO>> GetAllCategories()
         {
             return await Task.FromResult(categoryService.GetAllCategories());

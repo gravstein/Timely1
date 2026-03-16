@@ -7,12 +7,7 @@ namespace Timely1.Extensions
     {
         public static void AddLocalizationConfigs(this IServiceCollection services)
         {
-            services.AddSingleton<IStringLocalizerFactory>(provider => // добавляем фабрику для локализатора чтобы правильно искать путь
-                new ResourceManagerStringLocalizerFactory( // находим ресурсный файл для локализации
-                    Options.Create(new LocalizationOptions { ResourcesPath = "" }), // создаём локализатор фабрикой и даём путь
-                    provider.GetRequiredService<ILoggerFactory>()
-                )
-            );
+            services.AddLocalization(options => options.ResourcesPath = ""); // указываем путь к ресурсным файлам для локализации. 
 
             services.Configure<RequestLocalizationOptions>(options => // настройка наших локализаций
             {

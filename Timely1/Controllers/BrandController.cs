@@ -18,7 +18,7 @@ namespace Timely1.Controllers
         }
 
         [HttpGet("brands")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<List<BrandDTO>> GetAllBrands()
         {
             return await Task.FromResult(brandService.GetAllBrands());

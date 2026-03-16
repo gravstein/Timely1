@@ -1,4 +1,5 @@
-﻿using Models.DTO;
+﻿using Microsoft.AspNetCore.Http;
+using Models.DTO;
 
 namespace Abstraction.Interfaces.Services
 {
@@ -17,14 +18,22 @@ namespace Abstraction.Interfaces.Services
         /// </summary>
         /// <param name="guitarDTO">Guitar data to add</param>
         /// <returns>Id of added guitarDTO</returns>
-        Task<int> AddGuitar(GuitarDTO guitarDTO);
+        Task<int> AddGuitar(GuitarCreateDTO guitarDTO);
 
         /// <summary>
         /// Method for updating an Guitar
         /// </summary>
         /// <param name="guitarDTO">New guitar data</param>
         /// <returns>Id of updated guitarDTO</returns>
-        Task<int> UpdateGuitar(GuitarDTO guitarDTO);
+        Task<int> UpdateGuitar(GuitarCreateDTO guitarDTO);
+
+        /// <summary>
+        /// Method for adding image to a Guitar
+        /// </summary>
+        /// <param name="id">id of the guitar to add image to</param>
+        /// <param name="img">image of the guitar to add to</param>
+        /// <returns>Id of imaged GuitarDTO</returns>
+        Task<int> UploadImage(int id, IFormFile img);
 
         /// <summary>
         /// Method for deleting a Guitar

@@ -1,16 +1,9 @@
-
-using Abstraction.Interfaces.DataSourse;
 using Abstraction.Interfaces.Services;
-using BLL.Services;
-using DAL.DataSource;
-using DAL.EF;
-using Microsoft.EntityFrameworkCore;
-using Models.Entities;
 using Timely1.Extensions;
 
 
-
 var builder = WebApplication.CreateBuilder(args);
+
 var config = builder.Configuration; // config нашей сборки
 
 // подключение к БД      
@@ -31,6 +24,8 @@ builder.Services.AddJwtAuthentication(config);
 
 // регистрируем Authorize политики
 builder.Services.AddPolicies();
+// регистрируем CORS политики
+builder.Services.AddCorsPolicies();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -84,6 +79,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); // позволяем использовать файлы
+app.UseCors("AllowAll"); // разрешаем запросы к нашей API (для фронтенда)
 app.UseRequestLocalization(); // локализация
 app.UseAuthentication(); // добавляем аутентификацию 
 app.UseAuthorization();

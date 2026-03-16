@@ -36,6 +36,11 @@ namespace Models.DTO
         public string TypeOfWood { get; set; }
 
         /// <summary>
+        /// Path to image of guitar
+        /// </summary>
+        public string ImagePath { get; set; }
+
+        /// <summary>
         /// Brand of the Guitar
         /// </summary>
         public Brand Brand { get; set; }

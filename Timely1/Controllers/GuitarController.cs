@@ -22,7 +22,7 @@ namespace Timely1.Controllers
         }
 
         [HttpGet("guitars")] // метод GET который будет находится по пути: .../api/Guitar/guitars
-        [Authorize]
+        [AllowAnonymous]
         public async Task<List<GuitarDTO>> GetAllGuitars()
         {
             return await Task.FromResult(guitarService.GetAllGuitars()); // FromResult оборачивает наш результат в таску
@@ -31,16 +31,23 @@ namespace Timely1.Controllers
 
         [HttpPost("add-guitar")]
         [Authorize(Policy = "SuperRights")] // только менеджеры и админы
-        public async Task<int> AddGuitar([FromBody] GuitarDTO guitar) // брать данные из Body запроса а не из самой ссылки
+        public async Task<int> AddGuitar([FromBody] GuitarCreateDTO guitar) // брать данные из Body запроса а не из самой ссылки
         {
             return await guitarService.AddGuitar(guitar);
         }
 
         [HttpPut("update-guitar")]
         [Authorize(Policy = "SuperRights")]
-        public async Task<int> UpdateGuitar([FromBody] GuitarDTO guitar) 
+        public async Task<int> UpdateGuitar([FromBody] GuitarCreateDTO guitar) 
         {
             return await guitarService.UpdateGuitar(guitar);
+        }
+
+        [HttpPut("image-guitar")]
+        [Authorize(Policy = "SuperRights")] // только админы
+        public async Task<int> UploadImage([FromQuery] int id, IFormFile img)
+        {
+            return await guitarService.UploadImage(id,img);
         }
 
         [HttpDelete("delete-guitar")]
