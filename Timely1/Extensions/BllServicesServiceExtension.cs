@@ -1,4 +1,5 @@
 ﻿using Abstraction.Interfaces.Services;
+using BLL.Factories;
 using BLL.Services;
 using MapsterMapper;
 
@@ -12,6 +13,7 @@ namespace Timely1.Extensions
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IGuitarService, GuitarService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IDiscountService, DiscountService>();
 
             // аутентификация
             services.AddScoped<IUserService, UserService>();
@@ -20,6 +22,9 @@ namespace Timely1.Extensions
 
             // mapper
             services.AddSingleton<IMapper, Mapper>();
+
+            // fabrics
+            services.AddSingleton<DiscountFactory>();
 
             // seeder
             services.AddScoped<ISeedService, SeedService>();

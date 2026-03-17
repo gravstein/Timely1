@@ -14,6 +14,7 @@ namespace DAL.EF
         public DbSet<Guitar> Guitars { get; set; } // DbSet создают таблицу в БД на основе модели 
         public DbSet<Brand> Brands { get; set; } // также DbSet позволяет обращаться к данным как к объектам C# 
         public DbSet<Category> Categories { get; set; } // эти обращения EF Core превратит в SQL запросы
+        public DbSet<Discount> Discounts { get; set; } 
 
         public DbSet<AppUser> Users { get; set; }
         public DbSet<AppRole> Roles { get; set; }

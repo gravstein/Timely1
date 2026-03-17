@@ -7,6 +7,11 @@ import { useState, useEffect } from "react";
 // 🔧 API — замени BASE_URL на адрес своего ASP.NET Web API
 // ================================================================
 const BASE_URL = "https://localhost:7027/api";
+const STATIC_URL = "https://localhost:7027";
+function getImageUrl(path) {
+    return `${STATIC_URL}${path}`;
+}
+
 
 const api = {
     getGuitars: (params = {}) => {
@@ -128,7 +133,7 @@ function GuitarCard({ guitar, onAdd, onClick }) {
     return (
         <div style={s.card} onClick={() => onClick(guitar)}>
             <div style={s.cardImgWrap}>
-                <img src={guitar.image} alt={guitar.modelName} style={s.cardImg} />
+                <img src={getImageUrl(guitar.imagePath)} alt={guitar.modelName} style={s.cardImg} />
                 <span style={s.cardCat}>{guitar.category?.name}</span>
             </div>
             <div style={s.cardBody}>
@@ -241,7 +246,7 @@ function GuitarPage({ guitar, onAdd, onBack }) {
             </div>
             <div style={s.guitarPage}>
                 <div style={s.guitarImgWrap}>
-                    <img src={guitar.image} alt={guitar.modelName} style={s.guitarImg} />
+                    <img src={getImageUrl(guitar.imagePath)} alt={guitar.modelName} style={s.guitarImg} />
                 </div>
                 <div style={s.guitarInfo}>
                     <p style={s.guitarBrand}>{guitar.brand?.name}</p>
@@ -279,7 +284,7 @@ function CartPage({ cart, onRemove }) {
             <div style={s.cartList}>
                 {cart.map(item => (
                     <div key={item.id} style={s.cartRow}>
-                        <img src={item.image} alt={item.name} style={s.cartImg} />
+                        <img src={getImageUrl(item.imagePath)} alt={item.name} style={s.cartImg} />
                         <div style={{ flex: 1 }}>
                             <p style={s.cartItemBrand}>{item.brand?.name}</p>
                             <p style={s.cartItemName}>{item.modelName}</p>
@@ -392,7 +397,7 @@ const s = {
     // Card
     card: { background: "#fff", cursor: "pointer", transition: "box-shadow .2s" },
     cardImgWrap: { position: "relative", overflow: "hidden" },
-    cardImg: { width: "100%", height: 260, objectFit: "cover", display: "block", transition: "transform .4s" },
+    cardImg: { height: 260, objectFit: "cover", transition: "transform .4s" },
     cardCat: { position: "absolute", bottom: 12, left: 12, fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", background: "rgba(28,28,28,.85)", color: "#f8f7f5", padding: "4px 10px" },
     cardBody: { padding: "18px 18px 20px" },
     cardBrand: { fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "#c9a84c", margin: "0 0 5px" },
@@ -414,7 +419,7 @@ const s = {
     back: { fontSize: 13, color: "#888", cursor: "pointer", letterSpacing: 0.5 },
     guitarPage: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" },
     guitarImgWrap: { position: "sticky", top: 80 },
-    guitarImg: { width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" },
+    guitarImg: { width: "100%", aspectRatio: "4/3", objectFit: "contain", display: "block" },
     guitarInfo: { paddingTop: 8 },
     guitarBrand: { fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#c9a84c", margin: "0 0 12px" },
     guitarName: { color: "rgb(28, 28, 28)", fontFamily: "'Cormorant Garamond', serif", fontSize: 52, fontWeight: 300, margin: "0 0 20px", lineHeight: 1.1 },
@@ -428,7 +433,7 @@ const s = {
     // Cart
     cartList: { borderTop: "1px solid #e8e8e4", marginBottom: 0 },
     cartRow: { display: "flex", alignItems: "center", gap: 20, padding: "20px 0", borderBottom: "1px solid #e8e8e4" },
-    cartImg: { width: 90, height: 90, objectFit: "cover", flexShrink: 0 },
+    cartImg: { width: 90, height: 90, objectFit: "contain", flexShrink: 0 },
     cartItemBrand: { fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "#c9a84c", margin: "0 0 4px" },
     cartItemName: { fontFamily: "'Cormorant Garamond', serif", fontSize: 18, margin: "0 0 4px" },
     cartItemQty: { fontSize: 13, color: "#888", margin: 0 },

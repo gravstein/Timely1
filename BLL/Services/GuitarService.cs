@@ -94,6 +94,7 @@ namespace BLL.Services
 
             guitar.ImagePath = $"/images/guitars/{fileName}"; // сохраняем путь к файлу в базе данных
 
+            await _GuitarDataSource.UpdateBase(guitar);
             await _GuitarDataSource.SaveChangesAsync();
             return guitarId;
         }
