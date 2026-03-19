@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 // ================================================================
 // 🔧 API — замени BASE_URL на адрес своего ASP.NET Web API
 // ================================================================
-const BASE_URL = "https://localhost:7027/api";
-const STATIC_URL = "https://localhost:7027";
+const BASE_URL = "http://localhost:7027/api";
+const STATIC_URL = "http://localhost:7027";
 function getImageUrl(path) {
     return `${STATIC_URL}${path}`;
 }

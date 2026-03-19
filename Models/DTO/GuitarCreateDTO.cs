@@ -34,6 +34,10 @@ namespace Models.DTO
         /// Type of Guitars wood
         /// </summary>
         public string TypeOfWood { get; set; }
+        /// <summary>
+        /// Path to image of guitar
+        /// </summary>
+        public string ImagePath { get; set; }
 
         /// <summary>
         /// Id of Brand of the Guitar

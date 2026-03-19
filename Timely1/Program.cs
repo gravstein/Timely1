@@ -1,4 +1,6 @@
 using Abstraction.Interfaces.Services;
+using DAL.EF;
+using Microsoft.EntityFrameworkCore;
 using Timely1.Extensions;
 
 
@@ -64,7 +66,13 @@ builder.Services.AddSwaggerGen(c => // настройки сваггера
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
-{
+{   // автомиграции до seeder дл€ ƒокера
+    var db = scope.ServiceProvider.GetRequiredService<StreamingServiceDbContext>();
+    db.Database.Migrate(); // применит все миграции автоматически
+}
+
+using (var scope = app.Services.CreateScope())
+{   // seeder
     var seedService = scope.ServiceProvider.GetRequiredService<ISeedService>(); // берЄм нужный нам сервис потому что мы его регистрировали
     await seedService.SeedUsersAndRolesAsync(); // садим наших пользователей с рол€ми
 }
